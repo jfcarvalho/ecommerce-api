@@ -30,7 +30,7 @@ public class PedidoMapper {
 				ProdutoContract produtoContract = new ProdutoContract();
 				produtoContract.setNome(produto.getNome());
 				produtoContract.setIdProduto(produto.getIdProduto());
-				produtoContract.setDisponivel(produto.getDisponivel());
+				produtoContract.setDisponivel(produto.getDisponivel() == true ? "Sim" : "Não" );
 				produtoContract.setValorProduto(produto.getValorProduto());
 				produtosContracts.add(produtoContract);
 			}
@@ -80,7 +80,7 @@ public class PedidoMapper {
 			ProdutoContract produtoContract = new ProdutoContract();
 			produtoContract.setIdProduto(produtoModel.getIdProduto());
 			produtoContract.setNome(produtoModel.getNome());
-			produtoContract.setDisponivel(produtoModel.getDisponivel());
+			produtoContract.setDisponivel(produtoModel.getDisponivel() == true ? "Sim" : "Não" );
 			produtoContract.setValorProduto(produtoModel.getValorProduto());
 			produtosContract.add(produtoContract);
 		}
