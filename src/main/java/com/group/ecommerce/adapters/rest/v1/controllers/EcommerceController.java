@@ -1,8 +1,11 @@
 package com.group.ecommerce.adapters.rest.v1.controllers;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -87,7 +90,7 @@ public class EcommerceController {
 			headers = {"Accept=application/json"},
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = {@ApiResponse(code = 200, message = "Sucesso")})
-	public ResponseEntity<Object> atualizarCliente(@RequestParam String idCliente, @RequestBody ClienteDomain clienteDomain) {
+	public ResponseEntity<Object> atualizarCliente(@RequestParam String idCliente, @RequestBody @Valid ClienteDomain clienteDomain) {
 		var retorno = clienteService.atualizarCliente(idCliente, clienteDomain);
 		if(retorno == null) {
 			return ResponseEntity.notFound().build();
@@ -144,7 +147,7 @@ public class EcommerceController {
 			headers = {"Accept=application/json"},
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = {@ApiResponse(code = 200, message = "Sucesso")})
-	public PedidoContract inserirPedido(@RequestBody PedidoDomain pedido) {
+	public PedidoContract inserirPedido(@RequestBody @Valid PedidoDomain pedido) {
 		return pedidoService.inserirPedido(pedido);
 	}
 	

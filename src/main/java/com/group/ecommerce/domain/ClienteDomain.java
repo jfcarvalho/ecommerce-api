@@ -1,12 +1,17 @@
 package com.group.ecommerce.domain;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class ClienteDomain {
 	
+	@NotNull
 	@JsonProperty("id")
 	private String idCliente;
 	
+	@NotNull
 	@JsonProperty("nome")
 	private String nome;
 	

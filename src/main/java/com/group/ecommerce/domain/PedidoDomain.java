@@ -2,19 +2,25 @@ package com.group.ecommerce.domain;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PedidoDomain {
 	
+	@NotNull
 	@JsonProperty("id")
 	private String idPedido;
 	
+	@NotNull
 	@JsonProperty("data_cadastro")
 	private String dataCadastro;
 	
+	@NotNull
 	@JsonProperty("idCliente")
 	private String idCliente;
 
+	@NotNull
 	@JsonProperty("status-entrega")
 	private String statusEntrega;
 	
