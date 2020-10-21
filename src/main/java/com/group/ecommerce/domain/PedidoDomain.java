@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.group.ecommerce.validators.StatusEntrega;
 
 public class PedidoDomain {
 	
@@ -19,14 +20,15 @@ public class PedidoDomain {
 	@NotNull
 	@JsonProperty("idCliente")
 	private String idCliente;
-
+	
+	@StatusEntrega
 	@NotNull
 	@JsonProperty("status-entrega")
 	private String statusEntrega;
 	
 	@JsonProperty("produtos")
 	private List<ProdutoDomain> produtos;
-
+	
 	public String getIdPedido() {
 		return idPedido;
 	}
@@ -66,4 +68,5 @@ public class PedidoDomain {
 	public void setProdutos(List<ProdutoDomain> produtos) {
 		this.produtos = produtos;
 	}
+
 }

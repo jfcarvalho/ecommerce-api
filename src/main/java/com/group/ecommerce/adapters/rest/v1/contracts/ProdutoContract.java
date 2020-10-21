@@ -18,7 +18,7 @@ public class ProdutoContract {
 	private BigDecimal valorProduto;
 
 	@JsonProperty("disponivel")
-	private Boolean disponivel;
+	private String disponivel;
 
 	public String getIdProduto() {
 		return idProduto;
@@ -44,11 +44,11 @@ public class ProdutoContract {
 		this.valorProduto = valorProduto;
 	}
 
-	public Boolean getDisponivel() {
+	public String getDisponivel() {
 		return disponivel;
 	}
 
-	public void setDisponivel(Boolean disponivel) {
+	public void setDisponivel(String disponivel) {
 		this.disponivel = disponivel;
 	}
 

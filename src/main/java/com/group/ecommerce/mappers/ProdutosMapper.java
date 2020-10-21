@@ -18,7 +18,7 @@ public class ProdutosMapper {
 			produtoContract.setIdProduto(produto.getIdProduto());
 			produtoContract.setNome(produto.getNome());
 			produtoContract.setValorProduto(produto.getValorProduto());
-			produtoContract.setDisponivel(produto.getDisponivel());
+			produtoContract.setDisponivel(produto.getDisponivel() == true ? "Sim" : "Não" );
 			listContract.add(produtoContract);
 		}
 		return listContract;

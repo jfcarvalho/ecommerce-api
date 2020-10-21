@@ -8,11 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.group.ecommerce.validators.StatusAtivoInativo;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ClienteDomain {
-	
-	@NotNull
-	@JsonProperty("id")
-	private String id;
+public class ClienteDomainAlterar {
 	
 	@NotNull
 	@JsonProperty("nome")
@@ -21,7 +17,7 @@ public class ClienteDomain {
 	@JsonProperty("data-cadastro")
 	private String dataCadastro;
 	
-	@StatusAtivoInativo(message = "Valor inválido")
+	@StatusAtivoInativo
 	@JsonProperty("status")
 	private String status;
 
@@ -47,14 +43,6 @@ public class ClienteDomain {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 }

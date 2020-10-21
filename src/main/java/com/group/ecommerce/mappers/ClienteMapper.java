@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 
 import com.group.ecommerce.adapters.rest.v1.contracts.ClienteContract;
 import com.group.ecommerce.domain.ClienteDomain;
+import com.group.ecommerce.domain.ClienteDomainAlterar;
 import com.group.ecommerce.models.ClienteModel;
 
 
@@ -27,11 +28,10 @@ public class ClienteMapper {
 	
 	public static ClienteModel domainToModel(ClienteDomain domain) {
 		ClienteModel clienteModel = new ClienteModel();
-		clienteModel.setIdCliente(domain.getIdCliente());
 		clienteModel.setNome(domain.getNome());
 		clienteModel.setDataCadastro(domain.getDataCadastro());
 		clienteModel.setStatus(domain.getStatus());
-		
+		clienteModel.setIdCliente(domain.getId());
 		return clienteModel;
 	}
 	
@@ -45,12 +45,12 @@ public class ClienteMapper {
 		return clienteContract;
 	}
 	
-	public static ClienteModel domainToModelPut(ClienteDomain domain) {
+	public static ClienteModel domainToModelPut(ClienteDomainAlterar domain, ClienteModel clienteBanco) {
 		ClienteModel clienteModel = new ClienteModel();
-		clienteModel.setIdCliente(domain.getIdCliente() != null ? domain.getIdCliente() : clienteModel.getIdCliente());
-		clienteModel.setNome(domain.getNome() != null ? domain.getNome() : clienteModel.getNome());
-		clienteModel.setDataCadastro(domain.getDataCadastro() != null ? domain.getDataCadastro() : clienteModel.getDataCadastro());
-		clienteModel.setStatus(domain.getStatus() != null ? domain.getStatus() : clienteModel.getStatus());
+		clienteModel.setIdCliente(clienteBanco.getIdCliente());
+		clienteModel.setNome(domain.getNome() != null ? domain.getNome() : clienteBanco.getNome());
+		clienteModel.setDataCadastro(domain.getDataCadastro() != null ? domain.getDataCadastro() : clienteBanco.getDataCadastro());
+		clienteModel.setStatus(domain.getStatus() != null ? domain.getStatus() : clienteBanco.getStatus());
 		
 		return clienteModel;
 	}

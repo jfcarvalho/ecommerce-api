@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.group.ecommerce.adapters.rest.v1.contracts.ClienteContract;
 import com.group.ecommerce.adapters.rest.v1.contracts.PedidoContract;
 import com.group.ecommerce.domain.ClienteDomain;
+import com.group.ecommerce.domain.ClienteDomainAlterar;
 import com.group.ecommerce.domain.PedidoDomain;
 import com.group.ecommerce.service.ClienteService;
 import com.group.ecommerce.service.PedidoService;
@@ -51,7 +52,7 @@ public class EcommerceController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = {@ApiResponse(code = 200, message = "Sucesso")})
 	public ResponseEntity<Object> listarClientes(@RequestParam("status") String status, @RequestParam("ordem") String ordem) {
-		var retorno = clienteService.listarClientes(status);
+		var retorno = clienteService.listarClientes(status, ordem);
 		if(retorno.isEmpty()) {
 			return ResponseEntity.noContent().build();
 		}
@@ -65,7 +66,7 @@ public class EcommerceController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = {@ApiResponse(code = 201, message = "Sucesso")})
 	@ResponseStatus(HttpStatus.CREATED)
-	public ClienteContract inserirCliente(@RequestBody ClienteDomain cliente) {
+	public ClienteContract inserirCliente(@RequestBody @Valid ClienteDomain cliente) {
 		return clienteService.criarCliente(cliente);
 		  
 	}
@@ -90,7 +91,7 @@ public class EcommerceController {
 			headers = {"Accept=application/json"},
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = {@ApiResponse(code = 200, message = "Sucesso")})
-	public ResponseEntity<Object> atualizarCliente(@RequestParam String idCliente, @RequestBody @Valid ClienteDomain clienteDomain) {
+	public ResponseEntity<Object> atualizarCliente(@RequestParam String idCliente, @RequestBody @Valid ClienteDomainAlterar clienteDomain) {
 		var retorno = clienteService.atualizarCliente(idCliente, clienteDomain);
 		if(retorno == null) {
 			return ResponseEntity.notFound().build();

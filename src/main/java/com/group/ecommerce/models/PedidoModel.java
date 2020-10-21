@@ -36,7 +36,7 @@ public class PedidoModel implements Serializable {
 	@Column(name = "status_entrega")
 	private String statusEntrega;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name ="pedido_produto",
 	joinColumns = @JoinColumn(name="id_pedido"),
 	inverseJoinColumns = @JoinColumn(name = "id_produto"))

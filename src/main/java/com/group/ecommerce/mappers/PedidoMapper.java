@@ -41,17 +41,17 @@ public class PedidoMapper {
 		return listContract;
 	}
 	
-	public static PedidoModel domainToModel (PedidoDomain domain) {
+	public static PedidoModel domainToModel (PedidoDomain domain, ClienteModel cliente) {
 		PedidoModel model = new PedidoModel();
 		model.setDataCadastro(domain.getDataCadastro());
 		model.setIdPedido(domain.getIdPedido());
 		model.setStatusEntrega(domain.getStatusEntrega());
 		
 		ClienteModel clienteModel = new ClienteModel();
-		clienteModel.setNome(model.getCliente().getNome());
-		clienteModel.setIdCliente(model.getCliente().getIdCliente());
-		clienteModel.setDataCadastro(model.getCliente().getDataCadastro());
-		clienteModel.setStatus(model.getCliente().getStatus());
+		clienteModel.setNome(cliente.getNome());
+		clienteModel.setIdCliente(cliente.getIdCliente());
+		clienteModel.setDataCadastro(cliente.getDataCadastro());
+		clienteModel.setStatus(cliente.getStatus());
 		model.setCliente(clienteModel);
 		
 		List<ProdutoModel> produtosModel = new ArrayList<>();
@@ -64,7 +64,6 @@ public class PedidoMapper {
 			produtosModel.add(produtoModel);
 		}
 		model.setProdutos(produtosModel);
-	
 		return model;
 	}
 	
