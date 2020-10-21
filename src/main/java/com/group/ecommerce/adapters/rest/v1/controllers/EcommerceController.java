@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.ecommerce.adapters.rest.v1.contracts.ClienteContract;
+import com.group.ecommerce.adapters.rest.v1.contracts.PedidoContract;
 import com.group.ecommerce.domain.ClienteDomain;
+import com.group.ecommerce.domain.PedidoDomain;
 import com.group.ecommerce.service.ClienteService;
 import com.group.ecommerce.service.PedidoService;
+import com.group.ecommerce.service.ProdutoService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +37,9 @@ public class EcommerceController {
 	
 	@Autowired
 	private PedidoService pedidoService;
+	
+	@Autowired
+	private ProdutoService produtoService;
 	
 	@ApiOperation("Lista todos os clientes de acordo com o filtro")
 	@GetMapping(
@@ -110,8 +116,12 @@ public class EcommerceController {
 			headers = {"Accept=application/json"},
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = {@ApiResponse(code = 200, message = "Sucesso")})
-	public ResponseEntity<Object> listarProdutos(@RequestParam String status, @RequestParam String ordem) {
-		return null;
+	public ResponseEntity<Object> listarProdutos() {
+		var retorno = produtoService.listarProdutos();
+		if(retorno.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok().body(retorno);
 	}
 	
 	@ApiOperation("Lista todos os pedidos de um cliente")
@@ -120,18 +130,22 @@ public class EcommerceController {
 			headers = {"Accept=application/json"},
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = {@ApiResponse(code = 200, message = "Sucesso")})
-	public ResponseEntity<Object> listarProduto(@RequestParam String status, @RequestParam String ordem) {
-		return null;
+	public ResponseEntity<Object> listarProduto(@PathVariable("idCliente") String idCliente) {
+		var retorno = pedidoService.buscarPedidosCliente(idCliente);
+		if(retorno.isEmpty()) {
+			ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok().body(retorno);
 	}
 	
 	@ApiOperation("Lista todos os pedidos de um cliente")
 	@PostMapping(
-			value="/clientes/{idCliente}/pedidos",
+			value="/clientes/pedidos",
 			headers = {"Accept=application/json"},
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = {@ApiResponse(code = 200, message = "Sucesso")})
-	public ResponseEntity<Object> inserirPedido(@RequestParam String status, @RequestParam String ordem) {
-		return null;
+	public PedidoContract inserirPedido(@RequestBody PedidoDomain pedido) {
+		return pedidoService.inserirPedido(pedido);
 	}
 	
 

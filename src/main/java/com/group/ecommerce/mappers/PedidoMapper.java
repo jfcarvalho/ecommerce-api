@@ -3,8 +3,12 @@ package com.group.ecommerce.mappers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.group.ecommerce.adapters.rest.v1.contracts.ClienteContract;
 import com.group.ecommerce.adapters.rest.v1.contracts.PedidoContract;
 import com.group.ecommerce.adapters.rest.v1.contracts.ProdutoContract;
+import com.group.ecommerce.domain.PedidoDomain;
+import com.group.ecommerce.domain.ProdutoDomain;
+import com.group.ecommerce.models.ClienteModel;
 import com.group.ecommerce.models.PedidoModel;
 import com.group.ecommerce.models.ProdutoModel;
 
@@ -35,6 +39,55 @@ public class PedidoMapper {
 			listContract.add(pedidoContract);
 		}
 		return listContract;
+	}
+	
+	public static PedidoModel domainToModel (PedidoDomain domain) {
+		PedidoModel model = new PedidoModel();
+		model.setDataCadastro(domain.getDataCadastro());
+		model.setIdPedido(domain.getIdPedido());
+		model.setStatusEntrega(domain.getStatusEntrega());
+		
+		ClienteModel clienteModel = new ClienteModel();
+		clienteModel.setNome(model.getCliente().getNome());
+		clienteModel.setIdCliente(model.getCliente().getIdCliente());
+		clienteModel.setDataCadastro(model.getCliente().getDataCadastro());
+		clienteModel.setStatus(model.getCliente().getStatus());
+		model.setCliente(clienteModel);
+		
+		List<ProdutoModel> produtosModel = new ArrayList<>();
+		for(ProdutoDomain produtoDomain:domain.getProdutos()) {
+			ProdutoModel produtoModel = new ProdutoModel();
+			produtoModel.setIdProduto(produtoDomain.getIdProduto());
+			produtoModel.setNome(produtoDomain.getNome());
+			produtoModel.setDisponivel(produtoDomain.getDisponivel());
+			produtoModel.setValorProduto(produtoDomain.getValorProduto());
+			produtosModel.add(produtoModel);
+		}
+		model.setProdutos(produtosModel);
+	
+		return model;
+	}
+	
+	public static PedidoContract modelToContract (PedidoModel model) {
+		PedidoContract contract = new PedidoContract();
+		contract.setDataCadastro(model.getDataCadastro());
+		contract.setIdPedido(model.getIdPedido());
+		contract.setStatusEntrega(model.getStatusEntrega());
+		
+		contract.setIdCliente(model.getCliente().getIdCliente());
+		
+		List<ProdutoContract> produtosContract = new ArrayList<>();
+		for(ProdutoModel produtoModel:model.getProdutos()) {
+			ProdutoContract produtoContract = new ProdutoContract();
+			produtoContract.setIdProduto(produtoModel.getIdProduto());
+			produtoContract.setNome(produtoModel.getNome());
+			produtoContract.setDisponivel(produtoModel.getDisponivel());
+			produtoContract.setValorProduto(produtoModel.getValorProduto());
+			produtosContract.add(produtoContract);
+		}
+		contract.setProdutos(produtosContract);
+	
+		return contract;
 	}
 
 }
